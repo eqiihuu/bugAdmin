@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Bug Adminstration{% endblock %}</title>
+</head>
+<body>
+
+{% block content %}
+<div>
+    {% for i in bugs %}
+        {{ i }}
+    {% endfor %}
+</div>
+{% endblock %}
+
+
+</body>
+</html>

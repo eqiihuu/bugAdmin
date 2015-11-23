@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Bug Adminstration{% endblock %}</title>
+</head>
+<body>
+<table width='100%' border="1" cellspacing="0">
+    <tr>
+        <td align="center" valign="middle">
+            <font size="5" color="#F08000"><strong>Detail of "{{bug.problem}}"</strong></font>
+        </td>
+    </tr>
+</table>
+{% block content %}
+<div>
+    <table border="1" width="100%">
+        <tr>
+            <td><font size="3"><strong>ID</strong></font></td>
+            <td><font size="3"><strong>Problem</strong></font></td>
+            <td><font size="3"><strong>Create Person</strong></font></td>
+            <td><font size="3"><strong>Create_time</strong></font></td>
+        </tr>
+        <tr>
+            <td><font size="3">{{bug.id}}</font></td>
+            <td><font size="3">{{bug.problem}}</font></td>
+            <td><font size="3">{{bug.create_person}}</font></td>
+            <td><font size="3">{{bug.create_time|date:"Y-m-d H:i:s"}}</font></td>
+        </tr>
+        <tr>
+        <td><font size="3"><strong>Note</strong></font></td>
+            <td colspan="3"><font size="3">{{bug.note}}</font></td>
+        </tr>
+
+    </table>
+    <table border="1" width="100%">
+        <tr>
+            <td align="center" colspan="4"><font size="3"><strong>Stage</strong></font></td>
+        </tr>
+        <tr>
+            <td><font size="3"><strong>Status</strong></font></td>
+            <td><font size="3"><strong>Update Person</strong></font></td>
+            <td><font size="3"><strong>Update Time</strong></font></td>
+            <td><font size="3"><strong>Note</strong></font></td>
+        </tr>
+        {% for i in stages %}
+        <tr>
+            <td><font size="3">{{i.status}}</font></td>
+            <td><font size="3">{{i.update_person}}</font></td>
+            <td><font size="3">{{i.update_time|date:"Y-m-d H:i:s"}}</font></td>
+            <td><font size="3">{{i.note}}</font></td>
+        </tr>
+        {% endfor%}
+    </table>
+</div>
+{% endblock %}
+
+<!--<form action="/bugs/create/", method="get">-->
+    <!--Bug Id:<input type="text" name="bugid" /><br>-->
+    <!--Stage Status:<input type="text" name="status" /><br>-->
+    <!--Person:<input type="text" name="person" /><br>-->
+    <!--<input type="submit" value="Submit">-->
+<!--</form>-->
+
+<table border="3">
+    <tr>
+        <td align="center"><strong>Create New Stage</strong></td>
+    </tr>
+    <tr>
+        <td>
+    <form action="/bugs/{{bug.id}}/" method='post'>
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="fieldWrapper">
+            {{ field.label_tag }}{{ field }}
+            {{ field.errors }}
+        </div>
+        {% endfor %}
+        <input type="submit" value="create", name="Create">
+    </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

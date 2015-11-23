@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Bug Admin{% endblock %}</title>
+</head>
+<body>
+
+<table width='100%' border="1" cellspacing="0">
+    <tr>
+        <td align="center" valign="middle">
+            <font size="5" color="#F08000"><strong>Bug List</strong></font>
+        </td>
+    </tr>
+</table>
+
+{% block content %}
+<form action="/bugs/" method='post'>
+    {% csrf_token %}
+    <table border="1" width="100%">
+        <tr bgcolor="#F0F0F0">
+            <td><font size="3"><strong>ID</strong></font></td>
+            <td><font size="3"><strong>Problem</strong></font></td>
+            <td><font size="3"><strong>Create Person</strong></font></td>
+            <td><font size="3"><strong>Create_time</strong></font></td>
+            <td><font size="3"><strong>
+                <input type="submit" value="Delete?", name="delete?">
+            </strong></font></td>
+        </tr>
+    {% for i in latest_bug_list %}
+        <tr>
+            <td><font size="3">{{i.id}}</font></td>
+            <td><font size="3"><a href=/bugs/{{i.id}}>{{i.problem}}</a></font></td>
+            <td><font size="3">{{i.create_person}}</font></td>
+            <td><font size="3">{{i.create_time|date:"Y-m-d H:i:s"}}</font></td>
+            <td>
+                <input type="checkbox" value={{i.id}} name="delete">
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+    <table border="3">
+        <tr>
+            <td align="center"><strong>Create Bug</strong></td>
+        </tr>
+        <tr>
+            <td>
+        {% for field in form %}
+        <div class="fieldWrapper">
+            {{ field.label_tag }}{{ field }}
+            {{ field.errors }}
+        </div>
+        {% endfor %}
+        <input type="submit" value="create", name="Create">
+        </td>
+        </tr>
+    </table>
+</form>
+{% endblock %}
+
+</body>
+</html>
