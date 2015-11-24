@@ -1,8 +1,7 @@
 from django.contrib import admin
-
-# Register your models here.
-from django.contrib import admin
 from .models import Bug, Stage
+# Register your models here.
+
 
 class StageInline(admin.TabularInline):
     model = Stage

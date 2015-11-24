@@ -1,5 +1,6 @@
 from django.db import models
 from time import timezone
+import time
 import datetime
 # Create your models here.
 
@@ -23,11 +24,8 @@ class Stage(models.Model):
     bug = models.ForeignKey(Bug)
     status = models.CharField(max_length=30)
     update_person = models.CharField(max_length=30)
-    update_time = models.DateTimeField('Time changed')  # auto_now_add=True
+    update_time = models.DateTimeField('Time updeted')  # auto_now_add=True
     note = models.CharField(max_length=500)
     def __unicode__(self):
         return self.status
 
-# class Person(models.Model):
-#     bug = models.ForeignKey(Bug)
-#     name = models.CharField(max_length=30)
